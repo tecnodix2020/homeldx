@@ -6,17 +6,22 @@
     :href="link"
   >
     <q-item-section
-      v-if="icon"
       avatar
     >
-      <q-icon :name="icon" />
+      <q-avatar color="grey">
+        <img :src="avatar" v-if="avatar">
+        {{ name.charAt(0) }}
+      </q-avatar>
     </q-item-section>
 
     <q-item-section>
-      <q-item-label>{{ title }}</q-item-label>
+      <q-item-label>{{ name }}</q-item-label>
       <q-item-label caption>
-        {{ caption }}
+        {{ job }}
       </q-item-label>
+    </q-item-section>
+    <q-item-section side>
+      <q-icon name="mode_edit" color="grey" />
     </q-item-section>
   </q-item>
 </template>
@@ -25,12 +30,12 @@
 export default {
   name: 'EssentialLink',
   props: {
-    title: {
+    name: {
       type: String,
       required: true
     },
 
-    caption: {
+    job: {
       type: String,
       default: ''
     },
@@ -40,9 +45,9 @@ export default {
       default: '#'
     },
 
-    icon: {
+    avatar: {
       type: String,
-      default: ''
+      default: 'https://cdn.quasar.dev/img/boy-avatar.png'
     }
   }
 }

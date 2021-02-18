@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
+  <q-layout view="hHh Lpr lFf">
     <q-header elevated>
       <q-toolbar>
         <q-btn
@@ -12,10 +12,10 @@
         />
 
         <q-toolbar-title>
-          Quasar App
+          Home Office Landix
         </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <div>Versão {{ version }}</div>
       </q-toolbar>
     </q-header>
 
@@ -30,12 +30,14 @@
           header
           class="text-grey-8"
         >
-          Essential Links
+          Colaboradores
         </q-item-label>
         <EssentialLink
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
+          v-for="employee in showEmployees"
+          :name="employee.name"
+          :job="employee.job"
+          :avatar="employee.avatar"
+          :key="employee.id"
         />
       </q-list>
     </q-drawer>
@@ -94,13 +96,46 @@ const linksData = [
   }
 ]
 
+const employees = [
+  {
+    id: '1',
+    name: 'Guilherme Ferreira',
+    job: 'Desenvolvedor',
+    departament: 'Produção',
+    avatar: ''
+  },
+  {
+    id: '2',
+    name: 'André Vasconcelos',
+    job: 'Desenvolvedor',
+    departament: 'Produção',
+    avatar: ''
+  },
+  {
+    id: '3',
+    name: 'Rangel Otoni',
+    job: 'Analista de Teste',
+    departament: 'Produção',
+    avatar: ''
+  },
+  {
+    id: '4',
+    name: 'Carla de Mello',
+    job: 'Analista de Teste',
+    departament: 'Produção',
+    avatar: 'https://cdn.quasar.dev/img/avatar2.jpg'
+  }
+]
+
 export default {
   name: 'MainLayout',
   components: { EssentialLink },
   data () {
     return {
       leftDrawerOpen: false,
-      essentialLinks: linksData
+      essentialLinks: linksData,
+      showEmployees: employees,
+      version: '0.0.1'
     }
   }
 }
