@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { LMap, LTileLayer, LMarker, LPopup } from 'vue2-leaflet'
+import { LMap, LTileLayer, LMarker, LPopup, LCircle } from 'vue2-leaflet'
 import 'leaflet/dist/leaflet.css'
 import { Icon } from 'leaflet'
 
@@ -7,6 +7,7 @@ Vue.component('l-map', LMap)
 Vue.component('l-tile-layer', LTileLayer)
 Vue.component('l-marker', LMarker)
 Vue.component('l-popup', LPopup)
+Vue.component('l-circle', LCircle)
 
 delete Icon.Default.prototype._getIconUrl
 Icon.Default.mergeOptions({

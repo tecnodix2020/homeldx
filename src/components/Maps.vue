@@ -11,6 +11,11 @@
         :lat-lng="[employess.lat, employess.long]"
         :icon="icon">
     </l-marker>
+    <l-circle
+            :lat-lng="circle.center"
+            :radius="circle.radius"
+            :color="circle.color"
+        />
     </l-map>
 </template>
 
@@ -41,7 +46,12 @@ export default {
         iconUrl: 'https://cdn.quasar.dev/img/avatar2.jpg',
         iconSize: [35, 35],
         iconAnchor: [16, 37]
-      })
+      }),
+      circle: {
+        center: [-18.8757479 + 1, -48.236035099 - 1],
+        radius: 60000,
+        color: 'red'
+      }
     }
   }
 }
