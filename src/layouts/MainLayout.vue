@@ -44,6 +44,7 @@
     </q-drawer>
 
     <q-page-container>
+      <my-coordenates/>
       <router-view />
     </q-page-container>
   </q-layout>
@@ -51,6 +52,7 @@
 
 <script>
 import EmployeesList from 'components/EmployeesList.vue'
+import Coordenates from 'components/Coordenates.vue'
 
 const employees = [
   {
@@ -86,7 +88,8 @@ const employees = [
 export default {
   name: 'MainLayout',
   components: {
-    'my-list': EmployeesList
+    'my-list': EmployeesList,
+    'my-coordenates': Coordenates
   },
   data () {
     return {
