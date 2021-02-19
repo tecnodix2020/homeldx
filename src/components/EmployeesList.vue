@@ -28,7 +28,7 @@
 
 <script>
 export default {
-  name: 'EssentialLink',
+  name: 'EmployeesList',
   props: {
     name: {
       type: String,
