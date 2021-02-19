@@ -2,11 +2,11 @@
     <q-page>
         <div class="row justify-center q-mt-lg">
             <q-btn
-                class="col-4"
+                class="col-8"
                 color="primary"
                 label="Coletar Localização"
                 push
-                size="lg"
+                size="sm"
                 @click="getGeolocation"
             />
         </div>

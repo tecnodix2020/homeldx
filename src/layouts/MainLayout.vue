@@ -41,10 +41,11 @@
           @click="edit = !edit"
         />
       </q-list>
+      <my-coordenates/>
     </q-drawer>
 
     <q-page-container>
-      <my-coordenates/>
+      <my-map/>
       <router-view />
     </q-page-container>
   </q-layout>
@@ -53,6 +54,7 @@
 <script>
 import EmployeesList from 'components/EmployeesList.vue'
 import Coordenates from 'components/Coordenates.vue'
+import Maps from 'components/Maps.vue'
 
 const employees = [
   {
@@ -89,7 +91,8 @@ export default {
   name: 'MainLayout',
   components: {
     'my-list': EmployeesList,
-    'my-coordenates': Coordenates
+    'my-coordenates': Coordenates,
+    'my-map': Maps
   },
   data () {
     return {
