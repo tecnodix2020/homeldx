@@ -94,6 +94,10 @@ export default {
     'my-coordenates': Coordenates,
     'my-map': Maps
   },
+  async created () {
+    var response = await this.$axios.get('/city')
+    console.log(response)
+  },
   data () {
     return {
       edit: false,
