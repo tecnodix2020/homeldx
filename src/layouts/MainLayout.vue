@@ -51,6 +51,7 @@
       <div>
         <my-form
           :employee="employeeForm"
+          v-on:closeForm="edit = !edit"
         />
       </div>
     </q-dialog>

@@ -47,10 +47,12 @@
         label="Cidade *"
         hint="Cidade"
         :options="cities"
+        option-value="_id"
+        option-label="description"
       />
       <div>
         <q-btn label="Confirmar" type="submit" color="primary"/>
-        <q-btn label="Cancelar" type="reset" color="primary" flat class="q-ml-sm" />
+        <q-btn label="Cancelar" type="reset" @click="$emit('closeForm')" color="primary" flat class="q-ml-sm" />
       </div>
     </q-form>
   </q-card>
@@ -77,19 +79,18 @@ export default {
   },
   async mounted () {
     var response = await this.$axios.get('/city')
-    response.data.map((city) => {
-      this.cities.push({ label: city.description, value: city._id })
-    })
+    this.cities = response.data
   },
   methods: {
     async onSubmit () {
-      var response = null
+      this.employee.city_id = this.employee.city._id
       try {
         if (this.employee._id) {
-          response = await this.$axios.put(`/employee/${this.employee._id}`, this.employee)
+          await this.$axios.put(`/employee/${this.employee._id}`, this.employee)
         } else {
-          response = await this.$axios.post('/employee', this.employee)
+          await this.$axios.post('/employee', this.employee)
         }
+        this.$emit('closeForm')
         this.$q.notify({
           message: 'Colaborador salvo com sucesso.',
           icon: 'announcement',
@@ -102,13 +103,10 @@ export default {
           color: 'warning'
         })
       }
-      console.log(response)
     },
 
     onReset () {
-      this.name = null
-      this.age = null
-      this.accept = false
+      this.$root.$emit('closeForm')
     }
   }
 }
