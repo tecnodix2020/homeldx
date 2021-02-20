@@ -84,10 +84,23 @@ export default {
   methods: {
     async onSubmit () {
       var response = null
-      if (this.employee._id) {
-        response = await this.$axios.put(`/employee/${this.employee._id}`, this.employee)
-      } else {
-        response = await this.$axios.post('/employee', this.employee)
+      try {
+        if (this.employee._id) {
+          response = await this.$axios.put(`/employee/${this.employee._id}`, this.employee)
+        } else {
+          response = await this.$axios.post('/employee', this.employee)
+        }
+        this.$q.notify({
+          message: 'Colaborador salvo com sucesso.',
+          icon: 'announcement',
+          color: 'primary'
+        })
+      } catch (error) {
+        this.$q.notify({
+          message: 'Não foi possível salvar as informações do colaborador',
+          icon: 'announcement',
+          color: 'warning'
+        })
       }
       console.log(response)
     },
