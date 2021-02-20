@@ -3,21 +3,21 @@
     clickable
     tag="a"
     target="_blank"
-    :href="link"
+    @click="$emit('form', employee)"
   >
     <q-item-section
       avatar
     >
       <q-avatar color="grey">
         <img :src="avatar" v-if="avatar">
-        {{ name.charAt(0) }}
+        {{ employee.name.charAt(0) }}
       </q-avatar>
     </q-item-section>
 
     <q-item-section>
-      <q-item-label>{{ name }}</q-item-label>
+      <q-item-label>{{ employee.name }}</q-item-label>
       <q-item-label caption>
-        {{ job }}
+        {{ employee.job }}
       </q-item-label>
     </q-item-section>
     <q-item-section side>
@@ -30,9 +30,13 @@
 export default {
   name: 'EmployeesList',
   props: {
+    id: {
+      type: String,
+      required: false
+    },
     name: {
       type: String,
-      required: true
+      required: false
     },
 
     job: {
@@ -48,6 +52,11 @@ export default {
     avatar: {
       type: String,
       default: 'https://cdn.quasar.dev/img/boy-avatar.png'
+    },
+
+    employee: {
+      type: Object,
+      required: true
     }
   }
 }

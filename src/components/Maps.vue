@@ -1,4 +1,5 @@
 <template>
+  <div>
     <l-map
         style='height: 90vh'
         :zoom="zoom"
@@ -17,6 +18,7 @@
             :color="circle.color"
         />
     </l-map>
+  </div>
 </template>
 
 <script>

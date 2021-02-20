@@ -1,26 +1,26 @@
 <template>
-    <q-page>
-        <div class="row justify-center q-mt-lg">
-            <q-btn
-                class="col-8"
-                color="primary"
-                label="Coletar Localização"
-                push
-                size="sm"
-                @click="getGeolocation"
-            />
-        </div>
-        <div class="row justify-center" >
-            <div class="col-10">
-                <p>
-                    Latitude: {{ this.latitude }}
-                </p>
-                <p>
-                    Longitude: {{ this.longitude }}
-                </p>
-            </div>
-        </div>
-    </q-page>
+  <div>
+      <div class="row justify-center q-mt-lg">
+          <q-btn
+              class="col-8"
+              color="primary"
+              label="Coletar Localização"
+              push
+              size="sm"
+              @click="getGeolocation"
+          />
+      </div>
+      <div class="row justify-center" >
+          <div class="col-10">
+              <p>
+                  Latitude: {{ this.latitude }}
+              </p>
+              <p>
+                  Longitude: {{ this.longitude }}
+              </p>
+          </div>
+      </div>
+  </div>
 </template>
 
 <script>

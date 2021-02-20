@@ -31,19 +31,29 @@
           class="text-grey-8"
         >
           Colaboradores
+          <q-btn class="q-ml-xl" round color="primary" icon="add" @click="newEmployee"/>
         </q-item-label>
         <my-list
           v-for="employee in showEmployees"
+          :id="employee.id"
           :name="employee.name"
           :job="employee.job"
           :avatar="employee.avatar"
           :key="employee.id"
-          @click="edit = !edit"
+          :employee="employee"
+          v-on:form="editForm"
         />
       </q-list>
       <my-coordenates/>
     </q-drawer>
 
+    <q-dialog v-model="edit" style="max-width: 600px">
+      <div>
+        <my-form
+          :employee="employeeForm"
+        />
+      </div>
+    </q-dialog>
     <q-page-container>
       <my-map/>
       <router-view />
@@ -55,55 +65,37 @@
 import EmployeesList from 'components/EmployeesList.vue'
 import Coordenates from 'components/Coordenates.vue'
 import Maps from 'components/Maps.vue'
-
-const employees = [
-  {
-    id: '1',
-    name: 'Guilherme Ferreira',
-    job: 'Desenvolvedor',
-    departament: 'Produção',
-    avatar: ''
-  },
-  {
-    id: '2',
-    name: 'André Vasconcelos',
-    job: 'Desenvolvedor',
-    departament: 'Produção',
-    avatar: ''
-  },
-  {
-    id: '3',
-    name: 'Rangel Otoni',
-    job: 'Analista de Teste',
-    departament: 'Produção',
-    avatar: ''
-  },
-  {
-    id: '4',
-    name: 'Carla de Mello',
-    job: 'Analista de Teste',
-    departament: 'Produção',
-    avatar: 'https://cdn.quasar.dev/img/avatar2.jpg'
-  }
-]
+import Form from 'components/Form.vue'
 
 export default {
   name: 'MainLayout',
   components: {
     'my-list': EmployeesList,
     'my-coordenates': Coordenates,
-    'my-map': Maps
+    'my-map': Maps,
+    'my-form': Form
   },
   async created () {
-    var response = await this.$axios.get('/city')
-    console.log(response)
+    var response = await this.$axios.get('/employee')
+    this.showEmployees = response.data
   },
   data () {
     return {
       edit: false,
       leftDrawerOpen: false,
-      showEmployees: employees,
-      version: '0.0.1'
+      showEmployees: null,
+      version: '0.0.1',
+      employeeForm: null
+    }
+  },
+  methods: {
+    editForm (object) {
+      this.employeeForm = object
+      this.edit = true
+    },
+    newEmployee () {
+      this.employeeForm = {}
+      this.edit = true
     }
   }
 }
