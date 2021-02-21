@@ -33,6 +33,13 @@
           Colaboradores
           <q-btn class="q-ml-md" color="primary" icon="add" @click="newEmployee"/>
         </q-item-label>
+        <q-circular-progress
+          v-if="!this.showEmployees"
+          indeterminate
+          size="50px"
+          color="primary"
+          class="q-ma-md"
+        />
         <my-list
           v-for="employee in showEmployees"
           :id="employee.id"
