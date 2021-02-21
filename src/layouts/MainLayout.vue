@@ -31,7 +31,7 @@
           class="text-grey-8"
         >
           Colaboradores
-          <q-btn class="q-ml-xl" round color="primary" icon="add" @click="newEmployee"/>
+          <q-btn class="q-ml-md" color="primary" icon="add" @click="newEmployee"/>
         </q-item-label>
         <my-list
           v-for="employee in showEmployees"
@@ -47,11 +47,11 @@
       <my-coordenates/>
     </q-drawer>
 
-    <q-dialog v-model="edit" style="max-width: 600px">
+    <q-dialog v-model="edit">
       <div>
         <my-form
           :employee="employeeForm"
-          v-on:closeForm="edit = !edit"
+          v-on:closeForm="closeForm()"
         />
       </div>
     </q-dialog>
@@ -77,8 +77,7 @@ export default {
     'my-form': Form
   },
   async created () {
-    var response = await this.$axios.get('/employee')
-    this.showEmployees = response.data
+    this.loadEmployees()
   },
   data () {
     return {
@@ -97,6 +96,14 @@ export default {
     newEmployee () {
       this.employeeForm = {}
       this.edit = true
+    },
+    async closeForm () {
+      this.edit = !this.edit
+      this.loadEmployees()
+    },
+    async loadEmployees () {
+      var response = await this.$axios.get('/employee')
+      this.showEmployees = response.data
     }
   }
 }

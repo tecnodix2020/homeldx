@@ -3,5 +3,12 @@
   "vetur.format.enable": false,
   "eslint.validate": ["javascript", "javascriptreact", "typescript", "vue"],
   
-  "vetur.experimental.templateInterpolationService": true
+  "vetur.experimental.templateInterpolationService": true,
+  // "workbench.colorCustomizations": {
+  //   "editor.background": "#000000",
+  //   "activityBar.background": "#000000",
+  //   "activityBarBadge.background": "#000000",
+  //   "sideBar.background": "#000000",
+  //   "statusBar.background": "#1e1e1e"
+  // },
 }
