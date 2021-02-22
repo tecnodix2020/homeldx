@@ -175,7 +175,7 @@ export default {
     },
     successNotify () {
       this.$q.notify({
-        position: 'bottom',
+        position: 'top',
         timeout: 3000,
         color: 'positive',
         textColor: 'white',

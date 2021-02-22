@@ -7,16 +7,18 @@
     >
     <l-tile-layer :url="url"></l-tile-layer>
     <l-marker
-        v-for="(employess, index) in markerLatLng"
+        v-for="(employess, index) in showEmployees"
         :key="index"
-        :lat-lng="[employess.lat, employess.long]"
-        :icon="icon">
+        :lat-lng="[employess.gpslat, employess.gpslon]"
+        :center="center"
+        >
+        <l-popup>
+          {{ employess.name }}
+        </l-popup>
+        <l-tooltip>
+          {{ employess.name }}
+        </l-tooltip>
     </l-marker>
-    <l-circle
-            :lat-lng="circle.center"
-            :radius="circle.radius"
-            :color="circle.color"
-        />
     </l-map>
   </div>
 </template>
@@ -25,35 +27,30 @@
 import L from 'leaflet'
 export default {
   name: 'Maps',
+  async created () {
+    this.loadEmployees()
+  },
   data () {
     return {
+      showEmployees: null,
       url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-      zoom: 5,
+      zoom: 11,
       center: [-18.8757479, -48.236035099],
-      markerLatLng: [
-        {
-          lat: -18.8757479,
-          long: -48.236035099
-        },
-        {
-          lat: -18.8757479 + 0.9,
-          long: -48.236035099 + 0.9
-        },
-        {
-          lat: -18.8757479 - 0.9,
-          long: -48.236035099 - 0.9
-        }
-      ],
       icon: L.icon({
         iconUrl: 'https://cdn.quasar.dev/img/avatar2.jpg',
-        iconSize: [35, 35],
+        // iconUrl: this.showEmployees.avatar,
+        iconSize: [25, 25],
         iconAnchor: [16, 37]
-      }),
-      circle: {
-        center: [-18.8757479 + 1, -48.236035099 - 1],
-        radius: 60000,
-        color: 'red'
-      }
+      })
+    }
+  },
+  methods: {
+    async loadEmployees () {
+      var response = await this.$axios.get('/employee')
+      this.showEmployees = response.data
+    },
+    centerUpdate (newcenter) {
+      this.center = newcenter
     }
   }
 }
