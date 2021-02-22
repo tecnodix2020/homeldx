@@ -74,6 +74,17 @@
         :rules="[ val => val && val.length > 0 || 'Por favor, digite o bairro onde mora']"
       />
 
+      <q-btn
+          filled
+          align="around"
+          class="btn-fixed-width"
+          color="grey"
+          label="Coleta de Localização *"
+          size="md"
+          icon="location_on"
+          @click="getGeolocation"
+        />
+
       <div>
         <q-btn label="Confirmar" type="submit" color="primary"/>
         <q-btn label="Cancelar" type="reset" @click="$emit('closeForm')" color="primary" flat class="q-ml-sm" />
@@ -108,6 +119,8 @@ export default {
   methods: {
     async onSubmit () {
       this.employee.city_id = this.employee.city._id
+      console.log(this.employee.gpslat)
+      console.log(this.employee.gpslon)
       try {
         if (this.employee._id) {
           await this.$axios.put(`/employee/${this.employee._id}`, this.employee)
@@ -131,6 +144,44 @@ export default {
 
     onReset () {
       this.$root.$emit('closeForm')
+    },
+
+    getGeolocation () {
+      if (navigator.geolocation) {
+        this.$q.loading.show()
+        navigator.geolocation.getCurrentPosition(this.setPosition, this.errorPosition)
+      } else {
+        this.errorPosition()
+      }
+    },
+
+    setPosition (position) {
+      const coords = position.coords
+      this.employee.gpslat = coords.latitude
+      this.employee.gpslon = coords.longitude
+      this.$q.loading.hide()
+      this.successNotify()
+    },
+    errorPosition () {
+      this.$q.notify({
+        position: 'bottom',
+        timeout: 3000,
+        color: 'negative',
+        textColor: 'white',
+        actions: [{ icon: 'close', color: 'white' }],
+        message: 'Erro na coleta de coordenadas - Ative a Coleta do Browser'
+      })
+      this.$q.loading.hide()
+    },
+    successNotify () {
+      this.$q.notify({
+        position: 'bottom',
+        timeout: 3000,
+        color: 'positive',
+        textColor: 'white',
+        actions: [{ icon: 'check', color: 'white' }],
+        message: 'Coordenadas coletadas com sucesso!'
+      })
     }
   }
 }

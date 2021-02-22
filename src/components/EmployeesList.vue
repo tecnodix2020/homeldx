@@ -49,6 +49,16 @@ export default {
       default: '#'
     },
 
+    gpslat: {
+      type: Number,
+      default: 0
+    },
+
+    gpslon: {
+      type: Number,
+      default: 0
+    },
+
     avatar: {
       type: String,
       default: 'https://cdn.quasar.dev/img/boy-avatar.png'

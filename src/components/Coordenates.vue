@@ -10,7 +10,10 @@
               @click="getGeolocation"
           />
       </div>
-      <div class="row justify-center" >
+      <div
+          class="row justify-center"
+          style='padding: 3vh'
+          >
           <div class="col-10">
               <p>
                   Latitude: {{ this.latitude }}
